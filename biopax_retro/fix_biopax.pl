@@ -4,16 +4,19 @@ use lib "/usr/local/gkb/modules";
 use GKB::DBAdaptor;
 use DBI;
 
+
+my $password = shift or die "Usage $0 password";
+
 my $dba = GKB::DBAdaptor->new(
           -dbname  => 'gk_current',
           -user    => 'smckay',
-          -pass    => '1fish2stink'
+          -pass    => '$password'
     );
 
 my $dbh = DBI->connect(
     "dbi:mysql:stable_identifiers",
     'smckay',
-    '1fish2stink'
+    '$password'
     );
 
 
