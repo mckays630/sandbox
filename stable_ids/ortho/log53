@@ -1,0 +1,16 @@
+I count a total of 31770 human things with 466564 ortho-stable_ids; 4 missing ortho stable ids
+$VAR1 = {
+          'Complex' => 7031,
+          'EntitySet' => 2,
+          'Polymerisation' => 22,
+          'Depolymerisation' => 1,
+          'OpenSet' => 2,
+          'Reaction' => 6123,
+          'Polymer' => 114,
+          'DefinedSet' => 2095,
+          'EntityWithAccessionedSequence' => 13819,
+          'GenomeEncodedEntity' => 58,
+          'CandidateSet' => 602,
+          'Pathway' => 1425,
+          'BlackBoxEvent' => 476
+        };

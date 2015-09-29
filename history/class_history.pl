@@ -9,7 +9,7 @@ use GKB::DBAdaptor;
 @ARGV >= 2 or die "$0 user pass";
 my ($user, $pass, $db) = @ARGV;
 
-my @releases = 44..54;
+my @releases = 49..54;
 my %dba;
 my %count;
 for my $rel (@releases) {
@@ -31,17 +31,24 @@ for my $rel (@releases) {
 }
 
 # Get ordered list of classes with count > 5000
-my $current_counts = $count{54};
+my ($ultimate,$penultimate) = @releases[-1,-2];
+my $current_counts = $count{$ultimate};
 my @classes = keys %$current_counts;
 
-my $classes = {release => \@releases};
+@classes = sort {$count{$ultimate}{$b} <=> $count{$ultimate}{$a}} @classes;
+
+my $classes = {
+    release => \@releases,
+    classes => \@classes,
+    counts  => {}
+};
 
 for my $class (@classes) {
     my @cnt;
     for my $rel (@releases) {
 	push @cnt, $count{$rel}{$class} || 0;
     }
-    $classes->{$class} = \@cnt;
+    $classes->{counts}->{$class} = \@cnt;
 }
 
 say encode_json($classes);

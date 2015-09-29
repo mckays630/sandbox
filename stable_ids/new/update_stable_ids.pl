@@ -1,0 +1,1 @@
+/home/smckay/development/GKB/scripts/release/generate_stable_ids/update_stable_ids.pl

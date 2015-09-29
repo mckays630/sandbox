@@ -1,6 +1,6 @@
 *.txt
 log
-*.lof
+*.log
 *.err
 *.gz
 *.zip
