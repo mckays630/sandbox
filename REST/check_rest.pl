@@ -8,16 +8,16 @@ die "Sorry, root permission required.\n" unless $> == 0;
 
 my $host = shift || HOST;
 
-my $url = HOST . "ReactomeRESTfulAPI/RESTfulWS/queryById/DatabaseObject/29358kjh";
+my $url = HOST . "ReactomeRESTfulAPI/RESTfulWS/queryById/DatabaseObject/29358";
 my $response = HTTP::Tiny->new->get($url);
 
 die "Failed!\n" unless $response->{success};
-
 
 my $content = $response->{content};
 my $OK = $content =~ /ATP/ && $content =~ /displayName/;
 
 my $stamp = timestamp();
+
 
 if ($OK) {
     say "OK $stamp";
