@@ -11,16 +11,22 @@ my $host = shift || HOST;
 my $url = HOST . "ReactomeRESTfulAPI/RESTfulWS/queryById/DatabaseObject/29358";
 my $response = HTTP::Tiny->new->get($url);
 
-die "Failed!\n" unless $response->{success};
-
-my $content = $response->{content};
-my $OK = $content =~ /ATP/ && $content =~ /displayName/;
-
 my $stamp = timestamp();
 
+if ($response->{success}) {
 
-if ($OK) {
-    say "OK $stamp";
+    my $content = $response->{content};
+    my $OK = $content =~ /ATP/ && $content =~ /displayName/;
+
+    my $stamp = timestamp();
+
+    if ($OK) {
+	say "OK $stamp";
+    }
+    else {
+	say STDERR "Error, restarting $stamp";
+	system "/etc/init.d/tomcat7 restart";
+    }
 }
 else {
     say STDERR "Error, restarting $stamp";
