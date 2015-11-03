@@ -2,13 +2,13 @@
 use common::sense;
 use HTTP::Tiny;
 
-use constant HOST => 'http://reactomerelease.oicr.on.ca/';
+use constant HOST => 'http://reactome.org/';
 
 die "Sorry, root permission required.\n" unless $> == 0;
 
-my $host = shift || HOST;
 
 my $url = HOST . "ReactomeRESTfulAPI/RESTfulWS/queryById/DatabaseObject/29358";
+say $url;
 my $response = HTTP::Tiny->new->get($url);
 
 my $stamp = timestamp();
@@ -25,12 +25,13 @@ if ($response->{success}) {
     }
     else {
 	say STDERR "Error, restarting $stamp";
-	system "/etc/init.d/tomcat7 restart";
+	say $content;
+#	system "/etc/init.d/tomcat7 restart";
     }
 }
 else {
     say STDERR "Error, restarting $stamp";
-    system "/etc/init.d/tomcat7 restart";
+#    system "/etc/init.d/tomcat7 restart";
 }
 
 sub timestamp {
