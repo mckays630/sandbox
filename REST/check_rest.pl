@@ -1,14 +1,14 @@
 #!/usr/bin/perl 
 use common::sense;
 use HTTP::Tiny;
+use JSON;
 
-use constant HOST => 'http://reactome.org/';
+use constant HOST => 'http://localhost/';
 
 die "Sorry, root permission required.\n" unless $> == 0;
 
+my $url = HOST . "ReactomeRESTfulAPI/RESTfulWS/frontPageItems/homo+sapiens";
 
-my $url = HOST . "ReactomeRESTfulAPI/RESTfulWS/queryById/DatabaseObject/29358";
-say $url;
 my $response = HTTP::Tiny->new->get($url);
 
 my $stamp = timestamp();
@@ -16,7 +16,10 @@ my $stamp = timestamp();
 if ($response->{success}) {
 
     my $content = $response->{content};
-    my $OK = $content =~ /ATP/ && $content =~ /displayName/;
+    my $json = decode_json($content);
+    my $OK = $json->[0]->{dbId};
+
+    #say $content;
 
     my $stamp = timestamp();
 
