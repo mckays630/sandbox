@@ -1,27 +1,27 @@
-#!/usr/bin/perl -w
-use strict;
+#!/usr/bin/perl
+use common::sense;
 use Data::Dumper;
 
 my %work;
 
 while (<>) {
     chomp;
-    next if /^Date|^Reactome|^PanCancer/;
+    next if /^Date|^Reactome|^PanCancer|^Mod/;
     my @data = split ",";
     $data[0] || next;
-    $data[0] =~ s/^\s+|\s+$//g;
+    $data[0] =~ s/^\s+|\s+$|\.?//g;
     $work{ucfirst($data[0])} += $data[1] || 0;
 }
 
 my $total_hr;
 my $total_num;
 
-print "Hours\n";
+say "Hours"
 while (my ($k,$v) = each %work) {
-    print join("\t",$k,$v,$v*52), "\n";
+    say join("\t",$k,$v,$v*52);
     $total_hr += $v;
     $total_num += $v*52;
 }
-print join("\t","Total",$total_hr,$total_num), "\n";
+say join("\t","Total",$total_hr,$total_num);
 
 
